@@ -4,12 +4,24 @@ var app = express();
 
 AircraftBrands = [
     {
-    id: 1,
-    name: "Boeing"
+    "id": 1,
+    "name": "Boeing"
     },
     {
-        id: 2,
-        name: "Airbus"
+        "id": 2,
+        "name": "Airbus"
+    },
+    {
+        "id": 3,
+        "name": "Manuel"
+    },
+    {
+        "id": 4,
+        "name": "elkin"
+    },
+    {
+        "id": 5,
+        "name": "hebert"
     }
 ]
 
