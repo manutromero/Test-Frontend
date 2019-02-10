@@ -1,6 +1,7 @@
 var express = require('express')
 var http = require('http')
 var app = express();
+var bodyParser = require('body-parser');
 
 AircraftBrands = [
     {
@@ -24,10 +25,12 @@ AircraftBrands = [
         "name": "hebert"
     }
 ]
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
-app.post('/users', (req, res)=>{
-    AircraftBrands.push("Aviones" + AircraftBrands.length)
-    res.send("New Aircarft")
+app.post('/mi-servicio', (req, res)=>{
+    console.log(req.body)
+    res.json("Hola desde API")
 })
 
 app.get('/mi-servicio', (req,res)=>{

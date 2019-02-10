@@ -1,3 +1,13 @@
+.alert-shown {
+  opacity: 1;
+  transition: all 250ms linear;
+}
+
+.alert-hidden {
+  opacity: 0;
+  transition: all 250ms linear;
+}
+
 @media (max-width: 720px) {
   .flex-column-720px{
     flex-direction: column;
