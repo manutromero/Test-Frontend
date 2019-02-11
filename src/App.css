@@ -9,6 +9,21 @@
   transition: all 250ms linear;
   display: none;
 }
+.Text-content{
+  padding: 20px 20px;
+  text-align: center;
+}
+.Text-content p:first-child{
+  font-size: 20px;
+  margin: 0px;
+}
+.Text-content p:first-child strong{
+ color: sandybrown
+}
+.Text-content p:last-child{
+  font-size: 16px;
+  color: gray;
+}
 
 @media (max-width: 720px) {
   .flex-column-720px{

@@ -12,13 +12,13 @@ class App extends Component {
       AirplaneSelected: "", 
       name: "",
       phone: "",
-      age: "",
-      email: "",
-      DataSend: false
+      age: 18,
+      email: ""
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   componentDidMount(){
     fetch('http://localhost:8001/mi-servicio')
     .then(res => {
@@ -29,6 +29,7 @@ class App extends Component {
             })
     })
   }
+
   handleClickShowAlert() {
     this.setState({
       showingAlert: true
@@ -46,6 +47,7 @@ class App extends Component {
         [name]: value
     })
   }
+
   handleSubmit (event) {
   event.preventDefault()
    console.log(this.state)
@@ -69,7 +71,7 @@ class App extends Component {
         this.setState({
           name: "",
           email: "",
-          age: "",
+          age: 18,
           phone: ""
         })
     },err =>{
@@ -77,18 +79,7 @@ class App extends Component {
     })
   
   }
-  renderlist = () =>{
-    let options = []
-    let age = 18;
-    for(let index = 18; index <= 100; index++) {
-      options.push(
-        <option key={age}>{age}</option>  
-      )
-      age ++
-    }
-    return options
-  }
-
+ 
   onOpenModal = (AirplaneSelected) => {
     this.setState({
       openModal: true,
@@ -102,39 +93,57 @@ class App extends Component {
     })
   }
   
-  render() {
-    let aircarfs = this.state.data
-    const {openModal, AirplaneSelected} = this.state
-    
-    let ListaItems = Object.keys(aircarfs).map((key, index)=>{
-        return  <li key={aircarfs[key].id} className="nav-item" onClick={this.onOpenModal.bind(this, aircarfs[key].name)}>
-                     <a className="nav-link active" href="#">{aircarfs[key].name}</a>
-                </li>
-    })
-   
+  renderlistOptions = () =>{
+    let options = []
+    let age = 18;
+    for(let index = 18; index <= 100; index++) {
+      options.push(
+        <option key={age} value={age}>{age}</option>  
+      )
+      age++
+    }
+    return options
+  }
 
+  renderItemsMenu = ()=>{
+    let aircarfs = this.state.data
+    let items = []
+      Object.keys(aircarfs).map((key, index)=>{
+          items.push(
+             <li key={aircarfs[key].id} className="nav-item" onClick={this.onOpenModal.bind(this, aircarfs[key].name)}>
+              <a className="nav-link active" href="#">{aircarfs[key].name}</a>
+            </li>)
+      })
+    return items
+  }
+
+  render() {
+    const {openModal, AirplaneSelected} = this.state
+  
     return (
       <div className="App">
         <ul className="nav justify-content-center flex-column-720px">
-            {ListaItems}
+            {this.renderItemsMenu()}
         </ul>
         <Modal open={openModal} onClose={this.onCloseModal} center>
-          <h3>Hola, bienvenido, sabemos que quieres viajar en un {AirplaneSelected},<br/> por favor diligencia el
-              siguiente formulario:</h3>
+        <div className="Text-content">
+          <p>Hola, bienvenido, sabemos que quieres viajar en un <strong>{AirplaneSelected}</strong>,</p>
+          <p>por favor diligencia el siguiente formulario:</p>
+        </div> 
             <form className="form-group" onSubmit={this.handleSubmit}>
               <label>Nombres y Apellidos:</label>
               <input className="form-control" type="text" placeholder="Aitor Porras Barbero" name="name" value={this.state.name} onChange={this.handleChange} required/>
             
               <label>Email:</label>
-              <input className="form-control" type="text" placeholder="name@example.com" name="email" value={this.state.email} onChange={this.handleChange} required/>
+              <input className="form-control" type="email" placeholder="name@example.com" name="email" value={this.state.email} onChange={this.handleChange} required/>
             
               <label>Celular:</label>
-              <input className="form-control" type="text" name="phone"  value={this.state.phone} onChange={this.handleChange} required/>
+              <input className="form-control" type="number" name="phone"  value={this.state.phone} onChange={this.handleChange} required/>
 
               <div className="form-group">
                 <label>Edad:</label>
                 <select className="form-control" name="age" value={this.state.age} onChange={this.handleChange} required>
-                  {this.renderlist()}
+                  {this.renderlistOptions()}
                 </select>
               </div>
               <input className="btn btn-success btn-lg btn-block" type="submit" value="Enviar" />
